@@ -69,6 +69,17 @@ class CategoryPolicy
     }
 
     /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTrash(User $user)
+    {
+        return $user->hasAbility('categories.trash');
+    }
+
+    /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user

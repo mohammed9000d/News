@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->hasAbility('product.update');
+        return $user->hasAbility('posts.update');
     }
 
     /**
@@ -76,7 +76,7 @@ class PostPolicy
      */
     public function viewTrash(User $user)
     {
-        return $user->hasAbility('posts.view-any');
+        return $user->hasAbility('posts.trash');
     }
 
     /**
