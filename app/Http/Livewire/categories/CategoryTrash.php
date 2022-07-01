@@ -44,7 +44,7 @@ class CategoryTrash extends Component
             return;
         }
         $categories = Category::onlyTrashed();
-        $this->authorize('force-delete', $categories);
+        $this->authorize('empty-trash', $categories);
         $categories->forceDelete();
     }
 }

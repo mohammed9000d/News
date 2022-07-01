@@ -116,7 +116,7 @@
                                     </td>
                                     {{--                                    <td>{{ $loop->iteration }}</td>--}}
                                     <td>{{$post->name}}</td>
-                                    <td>{{$post->category->name}}</td>
+                                    <td>{{$post->category->name ?? ''}}</td>
                                     <td>{{$post->status}}</td>
                                     <td>{{$post->created_at}}</td>
                                     <td>{{$post->updated_at}}</td>

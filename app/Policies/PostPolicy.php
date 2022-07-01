@@ -102,4 +102,27 @@ class PostPolicy
     {
         return $user->hasAbility('posts.force-delete');
     }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function emptyTrash(User $user)
+    {
+        return $user->hasAbility('posts.empty-trash');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restoreAll(User $user)
+    {
+        return $user->hasAbility('posts.restore-all');
+    }
+
 }

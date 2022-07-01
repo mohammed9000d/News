@@ -34,6 +34,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                         <!--begin::Export-->
+                        @can('restoreAll', App\Models\Post::class)
                         <button wire:click="restore" type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_export_users"{{ $posts->total() == 0 ? 'disabled' : '' }}>
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
@@ -54,12 +55,13 @@
                             <!--end::Svg Icon-->
                             Restore All
                         </button>
-                        <!--end::Export-->
-                        <!--begin::Add user-->
+                        @endcan
+                        @can('emptyTrash', App\Models\Post::class)
                         <button wire:click="$emit('emptyTrash')" type="button" class="btn btn-light-danger"{{ $posts->total() == 0 ? 'disabled' : '' }}>
                             <i class="bi bi-trash"></i>
                             Empty Trash
                         </button>
+                        @endcan
                     </div>
                     <div class="d-flex justify-content-end align-items-center d-none"
                          data-kt-user-table-toolbar="selected">
@@ -118,7 +120,7 @@
                                     </td>
                                     {{--                                    <td>{{ $loop->iteration }}</td>--}}
                                     <td>{{$post->name}}</td>
-                                    <td>{{$post->category->name}}</td>
+                                    <td>{{$post->category->name ?? ''}}</td>
                                     <td>{{$post->status}}</td>
                                     <td>{{$post->deleted_at}}</td>
                                     <td class="text-end">

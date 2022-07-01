@@ -102,4 +102,27 @@ class CategoryPolicy
     {
         return $user->hasAbility('categories.force-delete');
     }
+
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function emptyTrash(User $user)
+    {
+        return $user->hasAbility('categories.empty-trash');
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restoreAll(User $user)
+    {
+        return $user->hasAbility('categories.restore-all');
+    }
 }
