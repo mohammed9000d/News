@@ -55,12 +55,12 @@
                             Restore All
                         </button>
                         @endcan
-{{--                        @can('emptyTrash', App\Models\Category::class)--}}
+                        @can('emptyTrash', App\Models\Category::class)
                             <button wire:click="$emit('emptyTrash')" type="button" class="btn btn-light-danger"{{ $categories->total() == 0 ? 'disabled' : '' }}>
                                 <i class="bi bi-trash"></i>
                                 Empty Trash
                             </button>
-{{--                        @endcan--}}
+                        @endcan
                     </div>
                     <div class="d-flex justify-content-end align-items-center d-none"
                          data-kt-user-table-toolbar="selected">
