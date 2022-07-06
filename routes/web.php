@@ -21,9 +21,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
-require __DIR__.'/front.php';
-
 Route::prefix('cms/admin')->middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
@@ -36,3 +33,7 @@ Route::prefix('cms/admin')->middleware(['auth'])->group(function () {
 
     Route::view('roles', 'admin.roles.index')->name('roles');
 });
+
+require __DIR__.'/auth.php';
+require __DIR__.'/front.php';
+

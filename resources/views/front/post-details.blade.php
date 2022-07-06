@@ -69,6 +69,7 @@
                             <h5 class="card-title mb-0">Comments :</h5>
 
                             <ul class="media-list list-unstyled mb-0">
+                                @foreach($comments as $comment)
                                 <li class="mt-4">
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
@@ -76,72 +77,16 @@
                                                 <img src="images/client/01.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                                             </a>
                                             <div class="commentor-detail">
-                                                <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">Lorenzo Peterson</a></h6>
-                                                <small class="text-muted">15th August, 2019 at 01:25 pm</small>
+                                                <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">{{ $comment->user->name }}</a></h6>
+                                                <small class="text-muted">{{ $comment->created_at }}</small>
                                             </div>
                                         </div>
-                                        <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
                                     </div>
                                     <div class="mt-3">
-                                        <p class="text-muted fst-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
+                                        <p class="text-muted fst-italic p-3 bg-light rounded">" {{ $comment->body }} "</p>
                                     </div>
                                 </li>
-
-                                <li class="mt-4">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <a class="pe-3" href="#">
-                                                <img src="images/client/02.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                            </a>
-                                            <div class="commentor-detail">
-                                                <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">Tammy Camacho</a></h6>
-                                                <small class="text-muted">15th August, 2019 at 05:44 pm</small>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                    </div>
-                                    <div class="mt-3">
-                                        <p class="text-muted fst-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                    </div>
-                                </li>
-
-                                <li class="mt-4">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <a class="pe-3" href="#">
-                                                <img src="images/client/03.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                            </a>
-                                            <div class="commentor-detail">
-                                                <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">Tammy Camacho</a></h6>
-                                                <small class="text-muted">16th August, 2019 at 03:44 pm</small>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                    </div>
-                                    <div class="mt-3">
-                                        <p class="text-muted fst-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                    </div>
-
-                                    <ul class="list-unstyled ps-4 ps-md-5 sub-comment">
-                                        <li class="mt-4">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <a class="pe-3" href="#">
-                                                        <img src="images/client/01.jpg" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
-                                                    </a>
-                                                    <div class="commentor-detail">
-                                                        <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">Lorenzo Peterson</a></h6>
-                                                        <small class="text-muted">17th August, 2019 at 01:25 pm</small>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="text-muted"><i class="mdi mdi-reply"></i> Reply</a>
-                                            </div>
-                                            <div class="mt-3">
-                                                <p class="text-muted fst-italic p-3 bg-light rounded">" There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour "</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -150,45 +95,7 @@
                         <div class="card-body">
                             <h5 class="card-title mb-0">Leave A Comment :</h5>
 
-                            <form class="mt-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Your Comment</label>
-                                            <div class="form-icon position-relative">
-                                                <i data-feather="message-circle" class="fea icon-sm icons"></i>
-                                                <textarea id="message" placeholder="Your Comment" rows="5" name="message" class="form-control ps-5" required=""></textarea>
-                                            </div>
-                                        </div>
-                                    </div><!--end col-->
-
-{{--                                    <div class="col-lg-6">--}}
-{{--                                        <div class="mb-3">--}}
-{{--                                            <label class="form-label">Name <span class="text-danger">*</span></label>--}}
-{{--                                            <div class="form-icon position-relative">--}}
-{{--                                                <i data-feather="user" class="fea icon-sm icons"></i>--}}
-{{--                                                <input id="name" name="name" type="text" placeholder="Name" class="form-control ps-5" required="">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div><!--end col-->--}}
-
-{{--                                    <div class="col-lg-6">--}}
-{{--                                        <div class="mb-3">--}}
-{{--                                            <label class="form-label">Your Email <span class="text-danger">*</span></label>--}}
-{{--                                            <div class="form-icon position-relative">--}}
-{{--                                                <i data-feather="mail" class="fea icon-sm icons"></i>--}}
-{{--                                                <input id="email" type="email" placeholder="Email" name="email" class="form-control ps-5" required="">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div><!--end col-->--}}
-
-                                    <div class="col-md-12">
-                                        <div class="send d-grid">
-                                            <button type="submit" class="btn btn-primary">Send Message</button>
-                                        </div>
-                                    </div><!--end col-->
-                                </div><!--end row-->
-                            </form><!--end form-->
+                            @livewire('front.comment-livewire', ['post' => $post])
                         </div>
                     </div>
 
@@ -328,4 +235,18 @@
         </div><!--end container-->
     </section><!--end section-->
     <!-- Blog End -->
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        window.addEventListener('toast', event => {
+            toastr[event.detail.type](event.detail.message, event.detail.title ?? '')
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        })
+    </script>
 @endsection

@@ -18,13 +18,16 @@
     <!-- Bootstrap -->
     <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons -->
-    <link href="{{ asset('front//css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('front/css/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
     <!-- Slider -->
     <link rel="stylesheet" href="{{ asset('front/css/tiny-slider.css') }}"/>
     <!-- Main Css -->
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet" type="text/css" id="theme-opt" />
     <link href="{{ asset('front/css/colors/default.css') }}" rel="stylesheet" id="color-opt">
+    <link href="{{  asset('admin/assets/plugins/global/plugins.bundle.css')  }}" rel="stylesheet" type="text/css" />
+    @yield('style')
+    @livewireStyles
 </head>
 
 <body>
@@ -47,9 +50,20 @@
             <img src="{{ asset('front/images/logo-dark.png') }}" height="24" class="logo-light-mode" alt="">
             <img src="{{ asset('front/images/logo-light.png') }}" height="24" class="logo-dark-mode" alt="">
         </a>
-        <div class="buy-button">
-            <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-primary">Sign In \ Sign Up</a>
-        </div><!--end login button-->
+{{--        <div class="buy-button">--}}
+{{--            <a href="{{ route('login') }}" class="btn btn-primary">Login \ Sign Up</a>--}}
+{{--        </div>--}}
+
+        @if (Route::has('login'))
+            <div class="buy-button">
+                @auth
+                    <a href="{{ route('logout') }}" class="btn btn-primary-outline">Logout</a>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login \ Sign Up</a>
+                @endauth
+            </div>
+        @endif
+        <!--end login button-->
         <!-- End Logo container-->
         <div class="menu-extras">
             <div class="menu-item">
@@ -78,10 +92,10 @@
                         @endforeach
                     </ul>
                 </li>
-                <li><a href="../../../../../../Users/97059/Desktop/New%20folder/HTML/index.html" class="sub-menu-item">Contact us</a></li>
+                <li><a href="{{ route('contact') }}" class="sub-menu-item">Contact us</a></li>
             </ul><!--end navigation menu-->
             <div class="buy-menu-btn d-none">
-                <a href="https://1.envato.market/4n73n" target="_blank" class="btn btn-primary">Sign In\ Sign Up</a>
+                <a href="{{ route('login') }}" target="_blank" class="btn btn-primary">Login \ Sign Up</a>
             </div><!--end login button-->
         </div><!--end navigation-->
     </div><!--end container-->
@@ -187,6 +201,10 @@
 
 
 <!-- javascript -->
+@include('sweetalert::alert')
+@livewireScripts
+<script src="{{  asset('admin/assets/plugins/global/plugins.bundle.js')  }}"></script>
+{{--<script src="{{  asset('admin/assets/js/scripts.bundle.js')  }}"></script>--}}
 <script src="{{ asset('front/js/bootstrap.bundle.min.js') }}"></script>
 <!-- SLIDER -->
 <script src="{{ asset('front/js/tiny-slider.js') }} "></script>
@@ -195,5 +213,6 @@
 <!-- Main Js -->
 <script src="{{ asset('front/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
 <script src="{{ asset('front/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+@yield('script')
 </body>
 </html>
