@@ -14,16 +14,20 @@ class GeneralController extends Controller
     public function home()
     {
         $categories = Category::where('status', '=', 'Active')->limit(5)->get();
-        $recent_posts = Post::with('category')->orderBy('created_at', 'desc')->limit(3)->get();
-
-        $popular_posts = Post::select('posts.*', DB::raw('count(post_id) as total_comments'))
-            ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
-            ->groupBy('posts.id')
-            ->orderBy('total_comments', 'desc')
+        $recent_posts = Post::withCount('comments')
+            ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
-//        dd($popular_posts);
-
+//        $popular_posts = Post::select('posts.*', DB::raw('count(post_id) as total_comments'))
+//            ->join('comments', 'posts.id', '=', 'comments.post_id')
+//            ->groupBy('posts.id')
+//            ->orderBy('total_comments', 'desc')
+//            ->limit(3)
+//            ->get();
+        $popular_posts = Post::withCount('comments')
+            ->orderBy('comments_count', 'desc')
+            ->limit(3)
+            ->get();
         return view('front.home', [
             'recent_posts' => $recent_posts,
             'categories' => $categories,
@@ -32,10 +36,12 @@ class GeneralController extends Controller
     }
 
     public function postDetails($id){
-        $recent_posts = Post::with('category')->orderBy('created_at', 'desc')->limit(3)->get();
+        $recent_posts = Post::with('category')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
         $categories = Category::where('status', '=', 'Active')->limit(5)->get();
         $post = Post::findOrFail($id);
-//        $comments = $post->comments()->order_by('created_at')->limit(4)->get();
         $comments = $post->comments()->orderBy('created_at', 'desc')->limit(4)->get();
         return view('front.post-details', [
             'post' => $post,
