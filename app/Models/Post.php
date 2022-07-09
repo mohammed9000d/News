@@ -67,4 +67,8 @@ class Post extends Model
         $name = time(). '.' . $value->getClientOriginalExtension();
         $this->attributes['image'] = $value->storeAs('/', $name, ['disk' => 'uploads']);
     }
+
+    public function scopeActive($query) {
+        return $query->where('status', '=', 'Active');
+    }
 }

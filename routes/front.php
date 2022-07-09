@@ -11,11 +11,17 @@ Route::get('/', [GeneralController::class, 'home'])->name('home');
 Route::prefix('/')->middleware(['auth'])->group(function () {
     Route::get('post/{id}', [GeneralController::class, 'postDetails'])->name('post-details');
     Route::get('category/{id}', [GeneralController::class, 'category'])->name('category');
-    Route::get('contact', [GeneralController::class, 'contact'])->name('contact');
+    Route::get('popular-posts', [GeneralController::class, 'popularPosts'])->name('popular-posts');
+    Route::get('recent-posts', [GeneralController::class, 'recentPosts'])->name('recent-posts');
+    Route::get('posts-today', [GeneralController::class, 'allPostsToday'])->name('posts-today');
+    Route::get('search', [GeneralController::class, 'searchPosts'])->name('search');
+//    Route::get('contact', [GeneralController::class, 'contact'])->name('contact');
 
     Route::get('logout', [LoginUserController::class, 'destroy'])
         ->name('logout');
 });
+
+Route::get('/contact', [GeneralController::class, 'contact'])->name('contact');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterUserController::class, 'create'])->name('register');

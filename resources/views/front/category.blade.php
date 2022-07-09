@@ -9,14 +9,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="page-next-level">
-                        <h4 class="title"> Blog Listing & Sidebar </h4>
+                        <h4 class="title"> {{ $title ?? $category->name }} </h4>
                         <div class="page-next">
                             <nav aria-label="breadcrumb" class="d-inline-block">
                                 <ul class="breadcrumb bg-white rounded shadow mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Landrick</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Page</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Blog</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Blog List with Sidebar</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ $title ?? $category->name }}</li>
                                 </ul>
                             </nav>
                         </div>
@@ -61,7 +59,7 @@
                                                 <div class="post-meta d-flex justify-content-between mt-3">
                                                     <ul class="list-unstyled mb-0">
                                                         <li class="list-inline-item me-2 mb-0"><a href="javascript:void(0)" class="text-muted like"><i class="uil uil-heart me-1"></i>33</a></li>
-                                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>08</a></li>
+                                                        <li class="list-inline-item"><a href="javascript:void(0)" class="text-muted comments"><i class="uil uil-comment me-1"></i>{{ $post->comments_count }}</a></li>
                                                     </ul>
                                                     <a href="{{ route('post-details', $post->id) }}" class="text-muted readmore">Read More <i class="uil uil-angle-right-b align-middle"></i></a>
                                                 </div>
@@ -71,15 +69,11 @@
                                 </div><!--end blog post-->
                             </div><!--end col-->
                         @endforeach
-                        <div class="col-12">
-                            <ul class="pagination justify-content-center mb-0">
-                                <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Previous">Prev</a></li>
-                                <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                                <li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Next">Next</a></li>
-                            </ul>
-                        </div><!--end col-->
+                            <div class="col-12">
+                                <ul class="pagination justify-content-center mb-0">
+                                    {{ $posts->links() }}
+                                </ul>
+                            </div>
                         <!-- PAGINATION END -->
                     </div><!--end row-->
                 </div><!--end col-->

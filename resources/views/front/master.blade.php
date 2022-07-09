@@ -57,7 +57,16 @@
         @if (Route::has('login'))
             <div class="buy-button">
                 @auth
-                    <a href="{{ route('logout') }}" class="btn btn-primary-outline">Logout</a>
+{{--                    <a href="{{ route('logout') }}" class="btn btn-primary-outline">Logout</a>--}}
+                    <div class="d-flex align-items-center">
+                        <a class="pe-3" href="#">
+                            <img src="{{ asset('front/images/user.jpg') }}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
+                        </a>
+                        <div class="commentor-detail">
+                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">{{ auth()->user()->name }}</a></h6>
+{{--                            <small class="text-muted">15th August, 2019 at 01:25 pm</small>--}}
+                        </div>
+                    </div>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-primary">Login \ Sign Up</a>
                 @endauth
