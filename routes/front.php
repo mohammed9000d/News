@@ -15,23 +15,20 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
     Route::get('recent-posts', [GeneralController::class, 'recentPosts'])->name('recent-posts');
     Route::get('posts-today', [GeneralController::class, 'allPostsToday'])->name('posts-today');
     Route::get('search', [GeneralController::class, 'searchPosts'])->name('search');
-//    Route::get('contact', [GeneralController::class, 'contact'])->name('contact');
-
-    Route::get('logout', [LoginUserController::class, 'destroy'])
-        ->name('logout');
+    Route::get('profile', [GeneralController::class, 'profile'])->name('profile');
 });
 
 Route::get('/contact', [GeneralController::class, 'contact'])->name('contact');
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisterUserController::class, 'create'])->name('register');
-    Route::post('register', [RegisterUserController::class, 'store'])->name('register-store');
-    Route::get('login', [LoginUserController::class, 'create'])->name('login');
-    Route::post('login', [LoginUserController::class, 'store'])->name('login.store');
+//Route::middleware('guest')->group(function () {
+//    Route::get('register', [RegisterUserController::class, 'create'])->name('user.register');
+//    Route::post('register', [RegisterUserController::class, 'store'])->name('user.register.store');
+//    Route::get('login', [LoginUserController::class, 'create'])->name('user.login');
+//    Route::post('login', [LoginUserController::class, 'store'])->name('user.login.store');
 //    Route::get('forgot-password', [GeneralController::class, 'forgotPassword'])->name('forgot-password');
 //    Route::post('forgot-password', [GeneralController::class, 'forgotPasswordStore'])->name('forgot-password-store');
 //    Route::get('reset-password/{token}', [GeneralController::class, 'resetPassword'])->name('reset-password');
 //    Route::post('reset-password', [GeneralController::class, 'resetPasswordStore'])->name('reset-password-store');
-});
+//});
 
 

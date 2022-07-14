@@ -26,6 +26,7 @@
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet" type="text/css" id="theme-opt" />
     <link href="{{ asset('front/css/colors/default.css') }}" rel="stylesheet" id="color-opt">
     <link href="{{  asset('admin/assets/plugins/global/plugins.bundle.css')  }}" rel="stylesheet" type="text/css" />
+{{--    <link href="{{  asset('admin/assets/css/style.bundle.css')  }}" rel="stylesheet" type="text/css" />--}}
     @yield('style')
     @livewireStyles
 </head>
@@ -59,11 +60,11 @@
                 @auth
 {{--                    <a href="{{ route('logout') }}" class="btn btn-primary-outline">Logout</a>--}}
                     <div class="d-flex align-items-center">
-                        <a class="pe-3" href="#">
+                        <a class="pe-3" href="{{ route('profile') }}">
                             <img src="{{ asset('front/images/user.jpg') }}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                         </a>
                         <div class="commentor-detail">
-                            <h6 class="mb-0"><a href="javascript:void(0)" class="text-dark media-heading">{{ auth()->user()->name }}</a></h6>
+                            <h6 class="mb-0"><a href="{{ route('logout') }}" class="text-dark media-heading">{{ auth()->user()->name }}</a></h6>
 {{--                            <small class="text-muted">15th August, 2019 at 01:25 pm</small>--}}
                         </div>
                     </div>
@@ -222,6 +223,7 @@
 <!-- Main Js -->
 <script src="{{ asset('front/js/plugins.init.js') }}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
 <script src="{{ asset('front/js/app.js') }}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+<script src="{{  asset('admin/assets/js/scripts.bundle.js')  }}"></script>
 @yield('script')
 </body>
 </html>

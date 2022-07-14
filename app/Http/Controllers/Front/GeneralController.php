@@ -14,17 +14,17 @@ class GeneralController extends Controller
     public function home()
     {
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->withCount('comments')
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
-        $popular_posts = Post::active()
+        $popular_posts = Post::with('category')->active()
             ->withCount('comments')
             ->orderBy('comments_count', 'desc')
             ->limit(3)
             ->get();
-        $posts_today = Post::active()
+        $posts_today = Post::with('category')->active()
             ->where('created_at', '>=', now()->startOfDay())
             ->withCount('comments')
             ->limit(6)
@@ -39,12 +39,12 @@ class GeneralController extends Controller
 
     public function searchPosts(Request $request) {
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
         $search = $request->get('search');
-        $posts = Post::active()
+        $posts = Post::with('category')->active()
             ->where('name', 'LIKE', '%' . $search . '%')
             ->orWhere('short_description', 'LIKE', '%' . $search . '%')
             ->orWhere('full_description', 'LIKE', '%' . $search . '%')
@@ -60,7 +60,7 @@ class GeneralController extends Controller
     }
 
     public function postDetails($id){
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
@@ -77,12 +77,12 @@ class GeneralController extends Controller
 
     public function category($id){
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
         $category = Category::findOrFail($id);
-        $posts = Post::active()->whereHas('category', function ($query) use ($id) {
+        $posts = Post::with('category')->active()->whereHas('category', function ($query) use ($id) {
             $query->where('id', '=', $id);
         })->withCount('comments')->paginate(5);
         return view('front.category', [
@@ -94,7 +94,7 @@ class GeneralController extends Controller
     }
 
     public function contact() {
-        $categories = Category::active()->limit(5)->get();
+        $categories = Category::with('category')->active()->limit(5)->get();
         return view('front.contact', [
             'categories' => $categories,
         ]);
@@ -102,11 +102,11 @@ class GeneralController extends Controller
 
     public function popularPosts() {
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
-        $posts = Post::active()
+        $posts = Post::with('category')->active()
             ->select('posts.*', DB::raw('count(comments.id) as comments_count'))
             ->leftJoin('comments', 'comments.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
@@ -124,11 +124,11 @@ class GeneralController extends Controller
 
     public function recentPosts() {
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
-        $posts = Post::active()
+        $posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->paginate(5);
         $title = 'Recent Posts';
@@ -143,11 +143,11 @@ class GeneralController extends Controller
     public function allPostsToday()
     {
         $categories = Category::active()->limit(5)->get();
-        $recent_posts = Post::active()
+        $recent_posts = Post::with('category')->active()
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
-        $posts_today = Post::active()
+        $posts_today = Post::with('category')->active()
             ->where('created_at', '>=', now()->startOfDay())
             ->withCount('comments')
             ->paginate(5);
@@ -157,6 +157,13 @@ class GeneralController extends Controller
             'categories' => $categories,
             'recent_posts' => $recent_posts,
             'title' => $title,
+        ]);
+    }
+
+    public function profile() {
+        $categories = Category::active()->limit(5)->get();
+        return view('front.profile', [
+            'categories' => $categories,
         ]);
     }
 }

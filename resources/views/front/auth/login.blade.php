@@ -59,7 +59,7 @@
 
                         <!-- Validation Errors -->
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                        <form class="login-form mt-4" method="POST" action="{{ route('login.store') }}">
+                        <form class="login-form mt-4" method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
