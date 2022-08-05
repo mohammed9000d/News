@@ -16,6 +16,9 @@ Route::prefix('/')->middleware(['auth'])->group(function () {
     Route::get('posts-today', [GeneralController::class, 'allPostsToday'])->name('posts-today');
     Route::get('search', [GeneralController::class, 'searchPosts'])->name('search');
     Route::get('profile', [GeneralController::class, 'profile'])->name('profile');
+    Route::put('profile', [GeneralController::class, 'updateProfile'])->name('profile.update');
+    Route::get('change-password', [GeneralController::class, 'viewChangePassword'])->name('change-password');
+    Route::put('change-password', [GeneralController::class, 'changePassword'])->name('change-password.update');
 });
 
 Route::get('/contact', [GeneralController::class, 'contact'])->name('contact');

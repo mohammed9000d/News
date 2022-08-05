@@ -55,4 +55,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
 }

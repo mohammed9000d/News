@@ -18,11 +18,11 @@ class Post extends Model
     ];
 
     public function category() {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class);
     }
 
     public function comments() {
-        return $this->hasMany(Comment::class, 'post_id', 'id');
+        return $this->hasMany(Comment::class);
     }
 
     public function getCreatedAtAttribute($value) {

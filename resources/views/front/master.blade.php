@@ -64,7 +64,7 @@
                             <img src="{{ asset('front/images/user.jpg') }}" class="img-fluid avatar avatar-md-sm rounded-circle shadow" alt="img">
                         </a>
                         <div class="commentor-detail">
-                            <h6 class="mb-0"><a href="{{ route('logout') }}" class="text-dark media-heading">{{ auth()->user()->name }}</a></h6>
+                            <h6 class="mb-0"><a href="{{ route('profile') }}" class="text-dark media-heading">{{ auth()->user()->name }}</a></h6>
 {{--                            <small class="text-muted">15th August, 2019 at 01:25 pm</small>--}}
                         </div>
                     </div>

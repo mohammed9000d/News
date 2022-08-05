@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class GeneralController extends Controller
 {
@@ -161,9 +165,62 @@ class GeneralController extends Controller
     }
 
     public function profile() {
+        $profile = Auth::user()->profile;
+//        dd($profile);
         $categories = Category::active()->limit(5)->get();
+//        $profile = Profile::findOrFail(Auth::user()->id);
         return view('front.profile', [
             'categories' => $categories,
+            'profile' => $profile,
         ]);
+    }
+
+    public function updateProfile(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+//        dd($request->all());
+        $user = Auth::user()->update([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => Auth::user()->password,
+        ]);
+        $profile = Auth::user()->profile;
+//        dd($request->get('address'));
+        $profile->phone = $request->get('phone');
+        $profile->address = $request->get('address');
+        $isUpdated = $profile->save();
+//        dd(123);
+        if($user && $isUpdated) {
+            return redirect()->back()->with('success', 'Profile updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Something went wrong');
+        }
+    }
+
+    public function viewChangePassword() {
+        $categories = Category::active()->limit(5)->get();
+        return view('front.change-password', [
+            'categories' => $categories,
+        ]);
+    }
+
+    public function changePassword(Request $request) {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+            'new_password_confirmation' => 'required',
+        ]);
+        $user = Auth::user();
+        if(Hash::check($request->get('old_password'), $user->password)) {
+            $user->password = Hash::make($request->get('new_password'));
+            $user->save();
+            return redirect()->back()->with('success', 'Password changed successfully');
+        } else {
+            return redirect()->back()->with('error', 'Old password is incorrect');
+        }
     }
 }
